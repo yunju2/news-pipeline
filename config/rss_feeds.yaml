@@ -1,0 +1,50 @@
+# RSS Feed Configuration
+
+feeds:
+  techcrunch:
+    name: "TechCrunch"
+    url: "https://techcrunch.com/feed/"
+    category: "tech"
+    subcategory: "startup"
+    update_frequency: "daily"
+    priority: 1
+    language: "en"
+    enabled: true
+
+  theverge:
+    name: "The Verge"
+    url: "https://www.theverge.com/rss/index.xml"
+    category: "tech"
+    subcategory: "consumer"
+    update_frequency: "daily"
+    priority: 1
+    language: "en"
+    enabled: true
+
+  cnbc:
+    name: "CNBC"
+    url: "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910"
+    category: "finance"
+    subcategory: "market"
+    update_frequency: "daily"
+    priority: 2
+    language: "en"
+    enabled: true
+
+  bloomberg:
+    name: "Bloomberg"
+    url: "https://feeds.bloomberg.com/markets/news.rss"
+    fallback_url: "https://news.google.com/rss/search?q=site:bloomberg.com&hl=en-US&gl=US&ceid=US:en"
+    category: "finance"
+    subcategory: "macro"
+    update_frequency: "daily"
+    priority: 1
+    language: "en"
+    enabled: true
+
+settings:
+  hours_lookback: 24
+  max_articles_per_feed: 20
+  max_content_length: 2000
+  similarity_threshold: 0.65
+  max_newsletter_articles: 8
