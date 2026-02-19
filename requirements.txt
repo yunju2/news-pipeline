@@ -1,0 +1,20 @@
+# 뉴스 수집 (RSS & Bloomberg)
+feedparser
+requests
+beautifulsoup4
+
+# 텍스트 추출
+trafilatura
+
+# 데이터 처리 및 설정
+PyYAML
+
+# 중복 제거 및 분석 (deduplicator/similarity 관련)
+scikit-learn
+numpy
+
+# AI 뉴스레터 생성 (Groq API)
+groq
+
+# 날짜 및 시간 관리
+python-dateutil
