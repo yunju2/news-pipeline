@@ -61,14 +61,6 @@ RSS Feeds (4개 매체)
 
 ## 실행 방법
 
-```bash
-# 환경 설정
-
-# 오늘 날짜로 실행
-python pipeline.py
-
-# 특정 날짜로 실행
-python pipeline.py --date 2026-02-05
 ```
 
 결과물: `output/{날짜}/newsletter.md` — 완성된 한국어 뉴스레터
@@ -110,8 +102,6 @@ python pipeline.py --date 2026-02-05
 - Bloomberg: 직접 RSS 시도 후 Google News RSS (`site:bloomberg.com`) 폴백
 
 ## 향후 확장 계획
-
-- Phase 2: Gemini API를 사용한 한국어번역
 - Phase 2: Notion API 연동 (자동 업로드)
 - Phase 2: cron 스케줄러 매일 자동 실행
 - Phase 3: 이메일 발송 (Stibee) 연동

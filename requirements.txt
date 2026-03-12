@@ -8,13 +8,23 @@ trafilatura
 
 # 데이터 처리 및 설정
 PyYAML
+python-dotenv
 
 # 중복 제거 및 분석 (deduplicator/similarity 관련)
 scikit-learn
 numpy
 
-# AI 뉴스레터 생성 (Groq API)
+# AI Provider
 groq
+google-genai
+openai
 
 # 날짜 및 시간 관리
 python-dateutil
+
+# CLI
+typer
+rich
+
+# AWS
+boto3
