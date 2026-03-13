@@ -5,14 +5,21 @@ description = "데일리 테크·투자 뉴스레터 자동 생성 파이프라�
 readme = "CLAUDE.md"
 requires-python = ">=3.11"
 dependencies = [
-    "feedparser>=6.0.10",
-    "trafilatura>=1.6.0",
-    "beautifulsoup4>=4.12.0",
-    "requests>=2.31.0",
-    "pyyaml>=6.0",
-    "groq>=0.4.0",
-    "python-dotenv>=1.0.0",
-    "typer>=0.9.0",
+    "feedparser>=6.0.12",
+    "requests>=2.32.5",
+    "beautifulsoup4>=4.14.3",
+    "trafilatura>=2.0.0",
+    "pyyaml>=6.0.3",
+    "python-dotenv>=1.2.2",
+    "scikit-learn>=1.8.0",
+    "numpy>=2.4.2",
+    "groq>=1.1.0",
+    "google-genai>=1.66.0",
+    "openai>=2.26.0",
+    "typer>=0.24.1",
+    "rich>=14.3.3",
+    "boto3>=1.42.64",
+    "ruff>=0.1.0",
 ]
 
 [project.optional-dependencies]
@@ -25,5 +32,3 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src", "config"]

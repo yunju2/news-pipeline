@@ -19,12 +19,12 @@ groq
 google-genai
 openai
 
-# 날짜 및 시간 관리
-python-dateutil
-
 # CLI
 typer
 rich
 
 # AWS
 boto3
+
+# CI 
+ruff

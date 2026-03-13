@@ -21,7 +21,7 @@ app = typer.Typer()
 
 def display_banner():
     """Display the ASCII art banner from assets/banner.txt"""
-    banner_path = pathlib.Path(__file__).parent / "assets" / "banner.txt"
+    banner_path = pathlib.Path(__file__).parent / "main" / "banner.txt"
     try:
         with open(banner_path, "r", encoding="utf-8") as f:
             banner_text = f.read()
