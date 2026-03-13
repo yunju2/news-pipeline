@@ -39,7 +39,7 @@ def main():
     print("\n:one: 주식 현재가 조회")
     print(":two: 오늘의 뉴스 받기")
 
-    choice = typer.prompt(f"\n 숫자를 입력하세요. (1 or 2) ", type=int)
+    choice = typer.prompt("\n 숫자를 입력하세요. (1 or 2) ", type=int)
 
     user_config = DEFAULT_CONFIG.copy()
 
@@ -47,7 +47,7 @@ def main():
         print("\n 종료합니다. (미완성)")
         raise typer.Exit()
     elif choice == 2:
-        print(f"[blue]사용 가능한 모델 : [/blue] groq, gemini, openAI")
+        print("[blue]사용 가능한 모델 : [/blue] groq, gemini, openAI")
 
         input_provider = typer.prompt(
             "사용할 Provider를 입력하세요.",

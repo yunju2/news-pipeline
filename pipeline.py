@@ -17,10 +17,10 @@ import sys
 from datetime import datetime
 
 from config.settings import get_articles_dir, get_output_dir
-from src.collector.article_extractor import extract_full_text
-from src.collector.bloomberg_fetcher import fetch_bloomberg
-from src.collector.rss_fetcher import fetch_all_feeds
-from src.deduplicator.similarity import deduplicate_articles
+from src.news_letter.collector.article_extractor import extract_full_text
+from src.news_letter.collector.bloomberg_fetcher import fetch_bloomberg
+from src.news_letter.collector.rss_fetcher import fetch_all_feeds
+from src.news_letter.deduplicator.similarity import deduplicate_articles
 from src.generator.groq_client import generate_newsletter
 
 # Configure logging

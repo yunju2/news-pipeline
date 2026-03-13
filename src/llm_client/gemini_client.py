@@ -1,5 +1,3 @@
-import os
-
 from google import genai
 from config.settings import GEMINI_API_KEY
 from .base_client import BaseLLMClient

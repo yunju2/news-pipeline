@@ -7,9 +7,8 @@ from time import mktime
 import feedparser
 import requests
 
-from src.news_letter.utils import load_feeds
-from src.news_letter.models import Article
-from default_config import DEFAULT_CONFIG
+from config.settings import FEEDS, HOURS_LOOKBACK, MAX_ARTICLES_PER_FEED
+from src.models.article import Article
 
 logger = logging.getLogger(__name__)
 
@@ -38,8 +37,7 @@ def fetch_rss_content(url: str) -> str | None:
 
 def fetch_bloomberg_direct() -> list[Article]:
     """Try to fetch Bloomberg articles from their direct RSS feed."""
-    feeds = load_feeds()
-    bloomberg_config = feeds.get("bloomberg", {})
+    bloomberg_config = FEEDS.get("bloomberg", {})
     url = bloomberg_config.get("url")
 
     if not url:
@@ -60,11 +58,9 @@ def fetch_bloomberg_direct() -> list[Article]:
             return []
 
         articles = []
-        hours = DEFAULT_CONFIG["news_pipeline"]["hours_lookback"]
-        max_per_feed = DEFAULT_CONFIG["news_pipeline"]["max_articles_per_feed"]
-        cutoff = datetime.now(tz=timezone.utc) - timedelta(hours=hours)
+        cutoff = datetime.now(tz=timezone.utc) - timedelta(hours=HOURS_LOOKBACK)
 
-        for entry in feed.entries[:max_per_feed]:
+        for entry in feed.entries[:MAX_ARTICLES_PER_FEED]:
             published = None
             if hasattr(entry, "published_parsed") and entry.published_parsed:
                 published = datetime.fromtimestamp(
@@ -97,8 +93,7 @@ def fetch_bloomberg_direct() -> list[Article]:
 
 def fetch_bloomberg_google_news() -> list[Article]:
     """Fetch Bloomberg articles via Google News RSS as fallback."""
-    feeds = load_feeds()
-    bloomberg_config = feeds.get("bloomberg", {})
+    bloomberg_config = FEEDS.get("bloomberg", {})
     fallback_url = bloomberg_config.get("fallback_url")
 
     if not fallback_url:
@@ -115,11 +110,9 @@ def fetch_bloomberg_google_news() -> list[Article]:
         feed = feedparser.parse(content)
 
         articles = []
-        hours = DEFAULT_CONFIG["news_pipeline"]["hours_lookback"]
-        max_per_feed = DEFAULT_CONFIG["news_pipeline"]["max_articles_per_feed"]
-        cutoff = datetime.now(tz=timezone.utc) - timedelta(hours=hours)
+        cutoff = datetime.now(tz=timezone.utc) - timedelta(hours=HOURS_LOOKBACK)
 
-        for entry in feed.entries[:max_per_feed]:
+        for entry in feed.entries[:MAX_ARTICLES_PER_FEED]:
             # Google News wraps the original URL
             url = entry.get("link", "")
 

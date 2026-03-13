@@ -7,12 +7,11 @@ from time import mktime
 import feedparser
 import requests
 
-from src.news_letter.utils import load_feeds
-from default_config import DEFAULT_CONFIG
-from src.news_letter.models import Article
+from config.settings import FEEDS, HOURS_LOOKBACK, MAX_ARTICLES_PER_FEED
+from src.models.article import Article
 
 logger = logging.getLogger(__name__)
-_CONFIG = DEFAULT_CONFIG["news_pipeline"]
+
 # Request settings
 REQUEST_TIMEOUT = 15
 USER_AGENT = (
@@ -30,12 +29,10 @@ def parse_published_date(entry: dict) -> datetime | None:
     return None
 
 
-def is_within_lookback(published: datetime | None, hours: int | None = None) -> bool:
+def is_within_lookback(published: datetime | None, hours: int = HOURS_LOOKBACK) -> bool:
     """Check if article is within the lookback period."""
     if not published:
         return True  # Include articles without date
-    if hours is None:
-        hours = _CONFIG["hours_lookback"]
     cutoff = datetime.now(tz=timezone.utc) - timedelta(hours=hours)
     return published >= cutoff
 
@@ -48,6 +45,8 @@ def fetch_feed(feed_id: str, feed_config: dict) -> list[Article]:
     if not url:
         logger.warning(f"No URL configured for feed: {feed_id}")
         return []
+
+    logger.info(f"Fetching feed: {name} ({url})")
 
     try:
         # Use requests to fetch feed (handles SSL properly)
@@ -63,8 +62,7 @@ def fetch_feed(feed_id: str, feed_config: dict) -> list[Article]:
             logger.debug(f"Feed parsing note for {name}: {feed.bozo_exception}")
 
         articles = []
-        max_per_feed = _CONFIG["max_articles_per_feed"]
-        for entry in feed.entries[:max_per_feed]:
+        for entry in feed.entries[:MAX_ARTICLES_PER_FEED]:
             published = parse_published_date(entry)
 
             if not is_within_lookback(published):
@@ -95,9 +93,8 @@ def fetch_feed(feed_id: str, feed_config: dict) -> list[Article]:
 def fetch_all_feeds() -> list[Article]:
     """Fetch articles from all configured feeds."""
     all_articles = []
-    feeds = load_feeds()
 
-    for feed_id, feed_config in feeds.items():
+    for feed_id, feed_config in FEEDS.items():
         articles = fetch_feed(feed_id, feed_config)
         all_articles.extend(articles)
 
