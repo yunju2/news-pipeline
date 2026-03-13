@@ -63,7 +63,9 @@ def fetch_bloomberg_direct() -> list[Article]:
         for entry in feed.entries[:MAX_ARTICLES_PER_FEED]:
             published = None
             if hasattr(entry, "published_parsed") and entry.published_parsed:
-                published = datetime.fromtimestamp(mktime(entry.published_parsed), tz=timezone.utc)
+                published = datetime.fromtimestamp(
+                    mktime(entry.published_parsed), tz=timezone.utc
+                )
 
             if published and published < cutoff:
                 continue
@@ -120,7 +122,9 @@ def fetch_bloomberg_google_news() -> list[Article]:
 
             published = None
             if hasattr(entry, "published_parsed") and entry.published_parsed:
-                published = datetime.fromtimestamp(mktime(entry.published_parsed), tz=timezone.utc)
+                published = datetime.fromtimestamp(
+                    mktime(entry.published_parsed), tz=timezone.utc
+                )
 
             if published and published < cutoff:
                 continue

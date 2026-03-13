@@ -2,8 +2,10 @@ from openai import OpenAI
 from config.settings import OPENAI_API_KEY
 from .base_client import BaseLLMClient
 
+
 class OpenAIClient(BaseLLMClient):
-    """OpenAI API Client""" 
+    """OpenAI API Client"""
+
     def __init__(self, model: str, **kwargs):
         super().__init__(model, **kwargs)
         self._client: OpenAI | None = None
@@ -29,4 +31,3 @@ class OpenAIClient(BaseLLMClient):
 
         response = client.chat.completions.create(**llm_kwargs)
         return response.choices[0].message.content
-       

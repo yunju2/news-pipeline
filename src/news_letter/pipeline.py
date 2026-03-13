@@ -89,7 +89,7 @@ def run(config: dict):
 
     # Step 5: Save output
     console.print("Step 5: Saving newsletter...")
-    newsletter_path = get_newsletter_path(date_str,provider)
+    newsletter_path = get_newsletter_path(date_str, provider)
     put_object(newsletter, newsletter_path, provider=provider, model=model)
 
     console.print(

@@ -74,7 +74,9 @@ def fetch_feed(feed_id: str, feed_config: dict) -> list[Article]:
                 source=name,
                 published=published,
                 summary=entry.get("summary", "").strip(),
-                categories=[tag.term for tag in entry.get("tags", []) if hasattr(tag, "term")],
+                categories=[
+                    tag.term for tag in entry.get("tags", []) if hasattr(tag, "term")
+                ],
             )
 
             if article.title and article.url:

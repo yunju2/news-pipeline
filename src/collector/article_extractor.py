@@ -78,7 +78,10 @@ def extract_full_text(articles: list[Article]) -> list[Article]:
     logger.info(f"Extracting full text for {len(articles)} articles...")
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        futures = {executor.submit(extract_article_text, article): article for article in articles}
+        futures = {
+            executor.submit(extract_article_text, article): article
+            for article in articles
+        }
 
         results = []
         for future in as_completed(futures):

@@ -1,4 +1,5 @@
 """Article full text extractor using trafilatura."""
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import trafilatura
@@ -24,6 +25,7 @@ def fetch_html(url: str) -> str | None:
     response.raise_for_status()
     return response.text
 
+
 def extract_text_from_html(html: str) -> str | None:
     """Extract main text content from HTML using trafilatura."""
     text = trafilatura.extract(
@@ -33,7 +35,6 @@ def extract_text_from_html(html: str) -> str | None:
         no_fallback=False,
     )
     return text
-
 
 
 def extract_article_text(article: Article) -> Article:

@@ -6,7 +6,7 @@ SUPPORTED_MODELS = {
         "gemini-2.5-flash-lite",
         "gemini-2.5-pro",
     ],
-    "openai" : ["gpt-4o-mini", "gpt-4o"]
+    "openai": ["gpt-4o-mini", "gpt-4o"],
 }
 
 
