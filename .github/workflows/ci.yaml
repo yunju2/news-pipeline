@@ -43,7 +43,7 @@ jobs:
       - name: Pytest (if tests exist)
         shell: bash
         run: |
-          if find . -type f \\( -path './tests/*' -o -name 'test_*.py' -o -name '*_test.py' \\) | grep -q .; then
+          if [ -d tests ] || find . -maxdepth 2 -name "test_*.py" | grep -q .; then
             pytest -q
           else
             echo "No tests found; skipping."
