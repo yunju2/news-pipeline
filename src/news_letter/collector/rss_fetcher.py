@@ -7,8 +7,17 @@ from time import mktime
 import feedparser
 import requests
 
-from config.settings import FEEDS, HOURS_LOOKBACK, MAX_ARTICLES_PER_FEED
-from src.models.article import Article
+import yaml
+
+from default_config import DEFAULT_CONFIG
+from src.news_letter.models.schema import Article
+
+# Load feeds from YAML
+with open(DEFAULT_CONFIG["rss_feeds_config"], encoding="utf-8") as f:
+    FEEDS = yaml.safe_load(f).get("feeds", {})
+
+HOURS_LOOKBACK = DEFAULT_CONFIG["news_pipeline"]["hours_lookback"]
+MAX_ARTICLES_PER_FEED = DEFAULT_CONFIG["news_pipeline"]["max_articles_per_feed"]
 
 logger = logging.getLogger(__name__)
 

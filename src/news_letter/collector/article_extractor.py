@@ -6,8 +6,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import trafilatura
 
-from config.settings import MAX_CONTENT_LENGTH
-from src.models.article import Article
+from default_config import DEFAULT_CONFIG
+from src.news_letter.models.schema import Article
+
+MAX_CONTENT_LENGTH = DEFAULT_CONFIG["news_pipeline"]["max_content_length"]
 
 logger = logging.getLogger(__name__)
 

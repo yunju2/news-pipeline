@@ -3,8 +3,11 @@
 import logging
 from difflib import SequenceMatcher
 
-from config.settings import MAX_NEWSLETTER_ARTICLES, SIMILARITY_THRESHOLD
-from src.models.article import Article, DeduplicatedArticle
+from default_config import DEFAULT_CONFIG
+from src.news_letter.models.schema import Article, DeduplicatedArticle
+
+SIMILARITY_THRESHOLD = DEFAULT_CONFIG["news_pipeline"]["similarity_threshold"]
+MAX_NEWSLETTER_ARTICLES = DEFAULT_CONFIG["news_pipeline"]["max_newsletter_articles"]
 
 logger = logging.getLogger(__name__)
 
