@@ -1,7 +1,8 @@
 # 지원하는 모델 목록 정의
 SUPPORTED_MODELS = {
-    "groq": ["llama-3.3-70b-versatile", "mixtral-8x7b-32768", "llama3-70b-8192"],
-    "gemini": [
+    "groq": ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"],
+    "openrouter": ["qwen/qwen3-next-80b-a3b-instruct:free"],
+    "google": [
         "gemini-2.5-flash",
         "gemini-2.5-flash-lite",
         "gemini-2.5-pro",

@@ -14,9 +14,8 @@ from src.news_letter.utils import (
 from src.news_letter.s3 import put_object
 from src.agents.reporter.reporter import Report
 from default_config import DEFAULT_CONFIG
+from src.llm_client.google_client import GoogleClient
 from src.llm_client.openai_client import OpenAIClient
-from src.llm_client.groq_client import GroqClient
-from src.llm_client.gemini_client import GeminiClient
 
 logger = logging.getLogger(__name__)
 
@@ -74,12 +73,10 @@ def run(config: dict):
     provider = config["deep_think_llm"]["provider"]
     model = config["deep_think_llm"]["model"]
 
-    if provider == "groq":
-        report_agent = Report(GroqClient(model))
-    elif provider == "gemini":
-        report_agent = Report(GeminiClient(model))
-    elif provider == "openai":
-        report_agent = Report(OpenAIClient(model))
+    if provider in ("openai", "groq", "openrouter"):
+        report_agent = Report(OpenAIClient(provider=provider, model=model))
+    elif provider == "google":
+        report_agent = Report(GoogleClient(model))
     else:
         console.print(f"[red]Error: Unsupported provider {provider}[/red]")
         return

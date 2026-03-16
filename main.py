@@ -4,8 +4,9 @@ import pathlib
 from rich import print
 from dotenv import load_dotenv
 from src.news_letter.pipeline import run
-from src.llm_client.validators import validate_model
+from src.llm_client.validators import validate_model, SUPPORTED_MODELS
 from default_config import DEFAULT_CONFIG
+from InquirerPy import prompt
 
 # Configure logging
 logging.basicConfig(
@@ -36,8 +37,8 @@ def main():
     """Daily Tech Newsletter CLI"""
     display_banner()
 
-    print("\n:one: 주식 현재가 조회")
-    print(":two: 오늘의 뉴스 받기")
+    print("\n🤍 1. 주식 현재가 조회")
+    print("💜 2. 오늘의 뉴스 받기")
 
     choice = typer.prompt("\n 숫자를 입력하세요. (1 or 2) ", type=int)
 
@@ -47,17 +48,37 @@ def main():
         print("\n 종료합니다. (미완성)")
         raise typer.Exit()
     elif choice == 2:
-        print("[blue]사용 가능한 모델 : [/blue] groq, gemini, openAI")
+        print("[blue]사용 가능한 모델을 선택하세요:[/blue]")
 
-        input_provider = typer.prompt(
-            "사용할 Provider를 입력하세요.",
-            default=user_config["deep_think_llm"]["provider"],
-        )
+        provider_question = [
+            {
+                "type": "list",
+                "name": "provider",
+                "message": "사용할 Provider를 선택하세요:",
+                "choices": list(SUPPORTED_MODELS.keys()),
+            }
+        ]
+        provider_answer = prompt(provider_question)
+        input_provider = provider_answer.get("provider")
 
-        input_model = typer.prompt(
-            "사용할 LLM Model를 입력하세요.",
-            default=user_config["deep_think_llm"]["model"],
-        )
+        if not input_provider:
+            print("선택이 취소되었습니다.")
+            raise typer.Exit()
+
+        model_question = [
+            {
+                "type": "list",
+                "name": "model",
+                "message": f"{input_provider}의 모델을 선택하세요:",
+                "choices": SUPPORTED_MODELS[input_provider],
+            }
+        ]
+        model_answer = prompt(model_question)
+        input_model = model_answer.get("model")
+
+        if not input_model:
+            print("선택이 취소되었습니다.")
+            raise typer.Exit()
 
         if validate_model(input_provider, input_model):
             user_config["deep_think_llm"] = {

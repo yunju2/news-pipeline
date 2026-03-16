@@ -20,6 +20,7 @@ dependencies = [
     "rich>=14.3.3",
     "boto3>=1.42.64",
     "ruff>=0.1.0",
+    "InquirerPy"
 ]
 
 [project.optional-dependencies]
