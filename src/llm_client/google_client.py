@@ -1,10 +1,10 @@
 from google import genai
-from config.settings import GEMINI_API_KEY
+from config.settings import GOOGLE_API_KEY
 from .base_client import BaseLLMClient
 
 
-class GeminiClient(BaseLLMClient):
-    """Gemini API client."""
+class GoogleClient(BaseLLMClient):
+    """Google API client."""
 
     def __init__(self, model: str, **kwargs):
         super().__init__(model, **kwargs)
@@ -12,9 +12,9 @@ class GeminiClient(BaseLLMClient):
 
     def _get_client(self) -> genai.Client:
         if self._client is None:
-            api_key = GEMINI_API_KEY
+            api_key = GOOGLE_API_KEY
             if not api_key:
-                raise ValueError("GEMINI_API_KEY not found. Set it in .env file.")
+                raise ValueError("GOOGLE_API_KEY not found. Set it in .env file.")
             self._client = genai.Client(api_key=api_key)
         return self._client
 

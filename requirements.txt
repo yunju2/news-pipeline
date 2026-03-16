@@ -22,6 +22,7 @@ openai
 # CLI
 typer
 rich
+InquirerPy
 
 # AWS
 boto3
