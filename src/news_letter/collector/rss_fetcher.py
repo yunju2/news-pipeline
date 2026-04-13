@@ -107,7 +107,7 @@ def fetch_all_feeds() -> list[Article]:
         if not feed_config.get("enabled", True):
             logger.info(f"Skipping disabled feed: {feed_config.get('name', feed_id)}")
             continue
-            
+
         articles = fetch_feed(feed_id, feed_config)
         all_articles.extend(articles)
 
