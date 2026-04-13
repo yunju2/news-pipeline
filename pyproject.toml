@@ -16,11 +16,9 @@ dependencies = [
     "groq>=1.1.0",
     "google-genai>=1.66.0",
     "openai>=2.26.0",
-    "typer>=0.24.1",
     "rich>=14.3.3",
     "boto3>=1.42.64",
     "ruff>=0.1.0",
-    "InquirerPy"
 ]
 
 [project.optional-dependencies]
@@ -35,4 +33,3 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src", "config"]
-

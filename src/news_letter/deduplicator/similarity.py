@@ -20,11 +20,9 @@ def normalize_title(title: str) -> str:
     # Remove source names that might be appended
     suffixes = [
         " - techcrunch",
-        " - the verge",
         " - bloomberg",
         " - cnbc",
         " | techcrunch",
-        " | the verge",
         " | bloomberg",
         " | cnbc",
     ]

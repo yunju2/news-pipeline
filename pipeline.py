@@ -2,7 +2,7 @@
 """
 Daily Tech Newsletter Pipeline
 
-Collects articles from TechCrunch, Bloomberg, The Verge, and CNBC,
+Collects articles from TechCrunch, Bloomberg, and CNBC,
 deduplicates them, and generates a Korean newsletter using Gemini API.
 
 Usage:

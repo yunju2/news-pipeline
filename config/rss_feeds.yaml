@@ -13,7 +13,7 @@ feeds:
     url: "https://www.theverge.com/rss/index.xml"
     priority: 1
     description: "Technology, science, art, and culture"
-    enabled: true
+    enabled: false
 
   cnbc_economy:
     name: "CNBC Economy"

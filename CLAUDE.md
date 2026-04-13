@@ -1,7 +1,7 @@
 # CLAUDE.md — 데일리 테크·투자 뉴스레터 프로젝트
 
 ## 프로젝트 개요
-TechCrunch, Bloomberg, The Verge, CNBC 4개 글로벌 매체에서 핵심 기사를 수집
+TechCrunch, Bloomberg, CNBC 3개 글로벌 매체에서 핵심 기사를 수집
 
 **Backend:**
 - Python 3.11+,
@@ -97,7 +97,7 @@ RSS Feeds (4개 매체)
 ## RSS 피드 URL
 
 - TechCrunch: `https://techcrunch.com/feed/`
-- The Verge: `https://www.theverge.com/rss/index.xml`
+- The Verge: `https://www.theverge.com/rss/index.xml` (현재 수집 비활성화됨)
 - CNBC Technology: `https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910`
 - Bloomberg: 직접 RSS 시도 후 Google News RSS (`site:bloomberg.com`) 폴백
 

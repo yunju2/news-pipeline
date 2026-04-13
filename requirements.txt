@@ -19,10 +19,8 @@ groq
 google-genai
 openai
 
-# CLI
-typer
+# Runtime
 rich
-InquirerPy
 
 # AWS
 boto3

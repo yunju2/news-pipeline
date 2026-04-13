@@ -1,7 +1,10 @@
 import os
 
 DEFAULT_CONFIG = {
-    "deep_think_llm": {"provider": "groq", "model": "llama-3.3-70b-versatile"},
+    "deep_think_llm": {
+        "provider": "groq",
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    },
     "quick_think_llm": {"provider": "groq", "model": "llama-3.1-8b-instant"},
     "data_vendors": {"core_stock_api": "yfinance"},
     "rss_feeds_config": os.path.join(
