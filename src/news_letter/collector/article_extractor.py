@@ -75,25 +75,46 @@ def extract_article_text(article: Article) -> Article:
     return article
 
 
+def _prefetch_html(article: Article) -> tuple[Article, str | None]:
+    """Fetch HTML in parallel but keep parser work single-threaded."""
+    if article.full_text:
+        return article, None
+    return article, fetch_html(article.url)
+
+
 def extract_full_text(articles: list[Article]) -> list[Article]:
-    """Extract full text for all articles in parallel."""
+    """Extract full text while avoiding concurrent trafilatura parsing crashes."""
     logger.info(f"Extracting full text for {len(articles)} articles...")
 
+    prefetched: list[tuple[Article, str | None]] = []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = {
-            executor.submit(extract_article_text, article): article
-            for article in articles
+            executor.submit(_prefetch_html, article): article for article in articles
         }
 
-        results = []
         for future in as_completed(futures):
             try:
-                result = future.result()
-                results.append(result)
+                prefetched.append(future.result())
             except Exception as e:
                 article = futures[future]
-                logger.error(f"Extraction failed for {article.title[:50]}: {e}")
-                results.append(article)
+                logger.error(f"HTML fetch failed for {article.title[:50]}: {e}")
+                prefetched.append((article, None))
+
+    results = []
+    for article, html in prefetched:
+        if article.full_text or not html:
+            results.append(article)
+            continue
+
+        text = extract_text_from_html(html)
+        if text:
+            if len(text) > MAX_CONTENT_LENGTH:
+                text = text[:MAX_CONTENT_LENGTH] + "..."
+            article.full_text = text
+            logger.debug(f"Extracted {len(text)} chars for: {article.title[:50]}")
+        else:
+            logger.debug(f"No text extracted for: {article.title[:50]}")
+        results.append(article)
 
     # Count successful extractions
     extracted = sum(1 for a in results if a.full_text)

@@ -21,6 +21,8 @@ openai
 
 # Runtime
 rich
+markdown
+bleach
 
 # AWS
 boto3

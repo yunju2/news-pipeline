@@ -81,6 +81,12 @@ def put_object(data: any, key: Path, bucket: str = None, **kwargs):
             ContentType=content_type,
             **({"Tagging": tagging} if tagging else {}),
         )
+        return {
+            "bucket": bucket,
+            "key": s3_key,
+            "uri": f"s3://{bucket}/{s3_key}",
+            "content_type": content_type,
+        }
     else:
         # 로컬 저장
         key.parent.mkdir(parents=True, exist_ok=True)
@@ -90,3 +96,9 @@ def put_object(data: any, key: Path, bucket: str = None, **kwargs):
             )
         else:
             key.write_text(str(data), encoding="utf-8")
+        return {
+            "bucket": None,
+            "key": str(key),
+            "uri": str(key),
+            "content_type": content_type,
+        }

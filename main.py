@@ -33,6 +33,14 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--auto",
+        action="store_true",
+        help=(
+            "Deprecated compatibility flag for containerized/EventBridge runs. "
+            "The pipeline already runs non-interactively by default."
+        ),
+    )
+    parser.add_argument(
         "--provider",
         default=os.getenv("NEWS_PIPELINE_PROVIDER"),
         help=(

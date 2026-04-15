@@ -11,6 +11,7 @@ from src.news_letter.utils import (
     get_newsletter_path,
     get_date,
 )
+from src.news_letter.email_delivery import send_newsletter_email
 from src.news_letter.s3 import put_object
 from src.agents.reporter.reporter import Report
 from default_config import DEFAULT_CONFIG
@@ -87,7 +88,18 @@ def run(config: dict):
     # Step 5: Save output
     console.print("Step 5: Saving newsletter...")
     newsletter_path = get_newsletter_path(date_str, provider)
-    put_object(newsletter, newsletter_path, provider=provider, model=model)
+    put_object(
+        newsletter,
+        newsletter_path,
+        provider=provider,
+        model=model,
+    )
+    send_newsletter_email(
+        newsletter,
+        provider=provider,
+        model=model,
+        date_str=date_str,
+    )
 
     console.print(
         f"Pipeline completed successfully! Saved to: {newsletter_path}",
