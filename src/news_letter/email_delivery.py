@@ -68,7 +68,9 @@ def _build_body(
     return "\n".join(lines)
 
 
-def _build_html_body(newsletter: str, *, provider: str, model: str, date_str: str) -> str:
+def _build_html_body(
+    newsletter: str, *, provider: str, model: str, date_str: str
+) -> str:
     newsletter_html = markdown.markdown(newsletter, extensions=["extra", "sane_lists"])
     safe_newsletter_html = bleach.clean(
         newsletter_html,
